@@ -52,19 +52,24 @@ export const loginUser = async (req, res, next) => {
         };
 
         const existingUser = await getUserByEmailService(email);
+        if (!existingUser) {
+            return res.status(404).json({
+                status: 404,
+                message: "User not found"
+            });
+        }   
+
         const passwordHash = existingUser.password
         const isPasswordMatched = await bcrypt.compare(password, passwordHash);
         
-       
-
         if(isPasswordMatched){
            const userCredentials = { email }
            const accessToken = generateAccessToken(userCredentials);
-           const refreshToken = generateRefreshToken(userCredentials);
+           const refreshToken = await generateRefreshToken(userCredentials);
             
             res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: 'Lax',
             path: '/',
             });

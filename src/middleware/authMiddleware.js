@@ -1,4 +1,5 @@
 import "dotenv/config";
+import jwt from "jsonwebtoken"
 import { getUserByEmailService } from "../models/user.model.js";
 
 export const authMiddleware = async (req, res, next)  => {
@@ -7,8 +8,12 @@ export const authMiddleware = async (req, res, next)  => {
 
     if(authHeaders){
         try{
+            console.log("Authenticating the bearer token...")
             token = authHeaders.split(" ")[1];
+
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+            if(!decoded) return res.status(401).json({ message: "Failed to verify the token" });
+
             req.user = await getUserByEmailService(decoded.email)
             
             if (!req.user) {

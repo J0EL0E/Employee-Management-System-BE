@@ -12,7 +12,7 @@ export const createRefreshToken = async (token) => {
 
 export const getRefreshToken = async (token) => {
     try{
-        const result = await pool.query("SELECT * FROM refresh_token WHERE token=$1 RETURNING *", [token]);
+        const result = await pool.query("SELECT * FROM refresh_token WHERE token = $1", [token]);
         return result.rows[0];
     } catch (error){
         console.error("Failed to retrieve the refresh Token", error);
