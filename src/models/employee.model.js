@@ -63,6 +63,22 @@ export const getEmployeeBySearchService = async (page, limit, searchKey) => {
     }
 }
 
+export const getEmployeeByIdService = async (id) => {
+    try{
+     
+        const result = await pool.query(
+          `SELECT * FROM employees WHERE id = $1`,
+          [id]
+        );
+
+        return result.rows[0]
+        
+    } catch (err) {
+        console.log("Failed to retrieve employee", err);
+        throw new Error("Failed to retrieve employee", err);
+    }
+}
+
 
 
 export const createNewEmployeeService = async (data) => {

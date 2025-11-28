@@ -1,4 +1,4 @@
-import { createNewEmployeeService, deleteEmployeeService, getEmployeeBySearchService, getAllEmployeeByFilterService, updateEmployeeDetailsService } from "../models/employee.model.js";
+import { createNewEmployeeService, deleteEmployeeService, getEmployeeBySearchService, getAllEmployeeByFilterService, updateEmployeeDetailsService, getEmployeeByIdService } from "../models/employee.model.js";
 
 export const createNewEmployee = async(req, res, next) => {
     try {
@@ -96,9 +96,34 @@ export const searchEmployeeByName = async (req, res, next) => {
     }
 }
 
+export const getEmployeeById = async (req, res, next) => {
+     try {
+        const {id} = req.params
+
+        if(!id) return res.status(400).json({
+            status: 400,
+            message: `Id is required`
+        });
+
+        const retrievedEmployee = await getEmployeeByIdService(id);
+        if(!retrievedEmployee) return res.status(400).json({
+            status: 400,
+            message: "Failed to retrieved the employee."
+        });
+
+        res.status(200).json({
+            status: 200,
+            message: "Employee data is updated successfully.",
+        });
+
+    } catch(err) {
+        console.log("Unable to retieved the employee: ", err);
+        next(err)
+    }
+}
+
 export const updateEmployeeDetails = async (req, res, next) => {
      try {
-
         const data = req.body
         const isValidated = Object.keys(data).some((input) => 
             data[input] !== ""  && input !== data["photoUrl"] 
@@ -144,7 +169,7 @@ export const deleteEmployee = async (req, res, next) => {
 
         res.status(200).json({
             status: 200,
-            message: "Employee data is updated successfully.",
+            message: "Employee data is deleted successfully.",
         });
 
     } catch(err) {
