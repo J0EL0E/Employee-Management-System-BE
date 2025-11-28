@@ -98,7 +98,7 @@ export const searchEmployeeByName = async (req, res, next) => {
 
 export const getEmployeeById = async (req, res, next) => {
      try {
-        const {id} = req.params
+        const {id} = req.query
 
         if(!id) return res.status(400).json({
             status: 400,
@@ -114,6 +114,7 @@ export const getEmployeeById = async (req, res, next) => {
         res.status(200).json({
             status: 200,
             message: "Employee data is updated successfully.",
+            employee: retrievedEmployee
         });
 
     } catch(err) {

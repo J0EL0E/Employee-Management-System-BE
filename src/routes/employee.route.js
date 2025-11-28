@@ -5,7 +5,7 @@ import { authMiddleware } from '../middleware/authMiddleware.js';
 export const employeeRouter = Router();
 
 employeeRouter.get("/employee", authMiddleware, filterEmployeeByLimit);
-employeeRouter.get("/employee/:id", authMiddleware, getEmployeeById);
+employeeRouter.get("/employee/id", authMiddleware, getEmployeeById);
 employeeRouter.get("/employee/search", authMiddleware, searchEmployeeByName);
 employeeRouter.post("/employee/create", authMiddleware, createNewEmployee);
 employeeRouter.put("/employee/update", authMiddleware, updateEmployeeDetails);
