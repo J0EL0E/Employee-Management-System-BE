@@ -13,8 +13,8 @@ Follow these steps to get the backend running on your local machine.
 Clone the project from the repository:
 
 
-git clone <Your_Repository_Link_Here>
-cd <your-repo-folder-name>
+git clone (https://github.com/J0EL0E/Employee-Management-System-BE)
+cd Employee-Management-System-BE
 1.2 Install Dependencies
 Install all required Node.js packages using npm or yarn:
 
