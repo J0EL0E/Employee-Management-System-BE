@@ -45,8 +45,8 @@ Run the development server:
 bash
 Copy code
 npm run dev
-# OR
-# yarn dev
+OR
+yarn dev
 The backend server should now be accessible at http://localhost:5000.
 
 2. Database Setup
